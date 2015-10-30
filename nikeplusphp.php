@@ -28,7 +28,7 @@ class NikePlusPHP {
 	/**
 	 * Private variables
 	 */
-	private $_cookie, $_userAgent = 'Mozilla/5.0';
+	private $_cookie, $_userAgent = 'Mozilla/5.0', $httpCode = null;
 
 	/**
 	 * __construct()
@@ -109,7 +109,7 @@ class NikePlusPHP {
 		curl_setopt($ch, CURLOPT_USERAGENT, $this->_userAgent);
 		curl_setopt($ch, CURLOPT_URL, $path);
 		$data = curl_exec($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$this->httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 		$jsonData = json_decode(utf8_decode($data));
 		if(is_null($jsonData)) {
@@ -359,5 +359,9 @@ class NikePlusPHP {
 		$pace = $duration / $distance;
 		return $this->formatDuration($pace);
 	}
+
+    public function getLastHttpCode() {
+        return $this->httpCode;
+    }
 
 }
