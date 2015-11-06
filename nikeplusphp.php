@@ -156,6 +156,13 @@ class NikePlusPHP {
 		}
 		krsort($this->activities);
 		return $this->activities;
+
+
+		if(is_array($this->activities)){
+			krsort($this->activities);
+			return $this->activities;
+		}
+		return null; 
 	}
 
 	/**
